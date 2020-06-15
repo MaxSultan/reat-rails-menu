@@ -2,21 +2,26 @@ import React, { useState } from 'react'
 import { Form } from 'semantic-ui-react'
 
 
-const MenuForm = () => {
+const MenuForm = ({ addMenu }) => {
     const [name, setName] = useState('') 
 
     const handleSubmit = (e) => {
-        //e.preventDefault()
-        console.log(e)
+        addMenu(name);
+        setName("")
     }
 
+    const handleChange = (e) => {
+        setName(e.target.value)
+    } 
+
     return (
-        <Form onSubmit={() => handleSubmit()}>
+        <Form onSubmit={handleSubmit}>
             <Form.Input 
+            required
             label={'menu name'} 
             placeholder={'menu name'} 
             value={name}
-            onChange={(e) => setName(e)}></Form.Input>
+            onChange={handleChange}></Form.Input>
             <Form.Button>Add</Form.Button>
         </Form>
     )

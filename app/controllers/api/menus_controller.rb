@@ -4,4 +4,23 @@ class Api::MenusController < ApplicationController
         render json: Menu.all
     end
 
+    def create
+       menu =  Menu.create(menu_params)
+        if menu.save
+            render json: menu
+        else 
+            render json: { errors: item.errors }, status: :unprocessable_entity
+        end 
+    end 
+
+    def destroy
+        render json:  Menu.find(params[:id]).destroy
+    end 
+
+    private
+
+    def menu_params
+        params.require(:menu).permit(:name)
+    end
+
 end
